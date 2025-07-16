@@ -52,17 +52,17 @@ class SendOtpRequest extends BaseRequest
 
         if(array_key_exists('message', $data)){
             if($data['type'] == 2 && $data['code'] == 8) {
-                throw new InvalidPhoneException($data);
+                throw InvalidPhoneException::Factory($data['type'],$data['code'],$data['message']);
             } else if($data['type'] == 3 && $data['code'] == 17) {
-                throw new NotExistUserException($data);
+                throw NotExistUserException::Factory($data['type'],$data['code'],$data['message']);
             } else if($data['type'] == 2 && $data['code'] == 20) {
-                throw new PaymentRequiredException($data);
+                throw PaymentRequiredException::Factory($data['type'],$data['code'],$data['message']);
             } else if($data['type'] == 1 && $data['code'] == 2) {
-                throw new ServerException($data);
+                throw ServerException::Factory($data['type'],$data['code'],$data['message']);
             } else if($data['type'] == 2 && $data['code'] == 18) {
-                throw new RateLimitException($data);
+                throw RateLimitException::Factory($data['type'],$data['code'],$data['message']);
             } else {
-                throw new CommonException($data);
+                throw CommonException::Factory($data['type'],$data['code'],$data['message']);
             }
         }
         if(array_key_exists('error', $data)){
