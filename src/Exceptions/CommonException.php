@@ -13,8 +13,9 @@ class CommonException extends Exception
         parent::__construct($message, $code, $previous);
     }
 
-    public static function Factory(int $type,int $code,string $message){
-        $exception = static($message,$code);
+    public static function Factory(int $type,int $code,string $message): static
+    {
+        $exception = new static($message, $code);
         $exception->type = $type;
 
         return $exception;
